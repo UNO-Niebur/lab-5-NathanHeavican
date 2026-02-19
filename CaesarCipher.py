@@ -1,4 +1,9 @@
-#Caesar Cipher
+#CaesarCipher.py
+#Name: Nathan Heavican
+#Date: 2/19/2026
+#Assignment: Lab 5
+#Purpose: Practice string indexing, looping through strings, string methods, and cryptographic concepts.
+
 #The Caesar cipher moves each letter forward in the alphabet by
 #the key.  The resulting message has all the letters advanced by 'key'
 #letters.
@@ -18,8 +23,20 @@ def encode(message, key):
 
     return secret
 
-#def decode(message, key):
+def decode(message, key):
     #We will want to decode the message here.
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    message = message.upper()
+    plaintext = ""
+
+    for letter in message:
+        if (alpha.find(letter) >= 0): #check to see if the letter is actually a letter
+            spot = (alpha.find(letter) - key) % 26
+            plaintext = plaintext + alpha[spot]
+        else: # letter must have been a number, symbol, or punctuation.
+            plaintext = plaintext + letter
+
+    return plaintext
 
 def main():
     message = input("Enter a message: ")
@@ -27,8 +44,8 @@ def main():
 
     secret = encode(message, key)
     print ("Encrypted:", secret)
-    #plaintext = decode(secret, key)
-    #print ("Decrypted:", plaintext)
+    plaintext = decode(secret, key)
+    print ("Decrypted:", plaintext)
 
 
 if __name__ == '__main__':
